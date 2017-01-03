@@ -23,6 +23,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    [super awakeFromNib];
     self.myContentView.backgroundColor = [UIColor yellowColor];
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
     pan.delegate = self;
@@ -34,7 +35,7 @@
     CGPoint p = [pan translationInView:self.myContentView];
    
 
-    CGFloat x = fabsf(p.x);
+    CGFloat x = fabs(p.x);
     // 轻触cell时也会调用该方法，故加判断
     if (x < 5) {
         return;
