@@ -6,7 +6,8 @@
 //  Copyright © 2017年 HFY. All rights reserved.
 //
 
-#import "SwipeTableViewCell.h"
+//#import "SwipeTableViewCell.h"
+#import <SwipeTableViewCellFramework/SwipeTableViewCellFramework.h>
 
 @interface TestSwipeTableViewCell : SwipeTableViewCell
 @property (nonatomic, strong) UILabel *myTextLabel;

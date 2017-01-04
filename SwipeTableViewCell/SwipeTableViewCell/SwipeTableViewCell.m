@@ -145,7 +145,7 @@ static NSMutableDictionary *_rightTitle;
 // 重用时恢复
 - (void)prepareForReuse {
     [super prepareForReuse];
-    [self swipeContentViewX:0 animated:0];
+    [self swipeContentViewX:0 animated:NO];
 
 }
 - (void)swipeContentViewX:(CGFloat)x animated:(BOOL)animated{
@@ -155,7 +155,7 @@ static NSMutableDictionary *_rightTitle;
     CGRect frame = self.swipeContentView.frame;
     frame.origin.x = x;
     
-    [UIView animateWithDuration:0.1 animations:^{
+    [UIView animateWithDuration:(animated ? 0.1 : 0) animations:^{
         self.swipeContentView.frame = frame;
     }];
 }
@@ -168,6 +168,7 @@ static NSMutableDictionary *_rightTitle;
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+    // 为了取消选中
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.leftButton.hidden = NO;
         self.rightButton.hidden = NO;
