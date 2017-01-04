@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "SwipeTableViewCell.h"
+#import "TestSwipeTableViewCell.h"
 
 @interface ViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -29,6 +29,9 @@
         NSString *item = [NSString stringWithFormat:@"Item #%ld", (long)i];
         [_data addObject:item];
     }
+    [TestSwipeTableViewCell setLeftTitle:@"完成" cellid:@"test"];
+    [TestSwipeTableViewCell setRightTitle:@"删除" cellid:@"test"];
+    [self.tableView registerClass:[TestSwipeTableViewCell class] forCellReuseIdentifier:@"test"];
 }
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return NO;
@@ -38,7 +41,8 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SwipeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SwipeTableViewCell" forIndexPath:indexPath];
+//    SwipeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SwipeTableViewCell" forIndexPath:indexPath];
+    TestSwipeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"test"];
     cell.myTextLabel.text = _data[indexPath.row];
     return cell;
 }

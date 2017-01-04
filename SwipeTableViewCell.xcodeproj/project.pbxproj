@@ -15,7 +15,8 @@
 		869312381C84238300CD22B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 869312371C84238300CD22B2 /* Assets.xcassets */; };
 		8693123B1C84238300CD22B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 869312391C84238300CD22B2 /* LaunchScreen.storyboard */; };
 		869312461C84238400CD22B2 /* SwipeTableViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 869312451C84238400CD22B2 /* SwipeTableViewCellTests.m */; };
-		869312521C84245D00CD22B2 /* SwipeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 869312511C84245D00CD22B2 /* SwipeTableViewCell.m */; };
+		86ADE9C51E1C95AB001E4783 /* SwipeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86ADE9C41E1C95AB001E4783 /* SwipeTableViewCell.m */; };
+		86ADE9C81E1C95C3001E4783 /* TestSwipeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86ADE9C71E1C95C3001E4783 /* TestSwipeTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,8 +44,10 @@
 		869312411C84238400CD22B2 /* SwipeTableViewCellTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwipeTableViewCellTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		869312451C84238400CD22B2 /* SwipeTableViewCellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwipeTableViewCellTests.m; sourceTree = "<group>"; };
 		869312471C84238400CD22B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		869312501C84245D00CD22B2 /* SwipeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeTableViewCell.h; sourceTree = "<group>"; };
-		869312511C84245D00CD22B2 /* SwipeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeTableViewCell.m; sourceTree = "<group>"; };
+		86ADE9C31E1C95AB001E4783 /* SwipeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeTableViewCell.h; sourceTree = "<group>"; };
+		86ADE9C41E1C95AB001E4783 /* SwipeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeTableViewCell.m; sourceTree = "<group>"; };
+		86ADE9C61E1C95C3001E4783 /* TestSwipeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestSwipeTableViewCell.h; sourceTree = "<group>"; };
+		86ADE9C71E1C95C3001E4783 /* TestSwipeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSwipeTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,12 +89,13 @@
 		869312271C84238300CD22B2 /* SwipeTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				86ADE9C21E1C957C001E4783 /* SwipeTableViewCell */,
 				8693122B1C84238300CD22B2 /* AppDelegate.h */,
 				8693122C1C84238300CD22B2 /* AppDelegate.m */,
 				8693122E1C84238300CD22B2 /* ViewController.h */,
 				8693122F1C84238300CD22B2 /* ViewController.m */,
-				869312501C84245D00CD22B2 /* SwipeTableViewCell.h */,
-				869312511C84245D00CD22B2 /* SwipeTableViewCell.m */,
+				86ADE9C61E1C95C3001E4783 /* TestSwipeTableViewCell.h */,
+				86ADE9C71E1C95C3001E4783 /* TestSwipeTableViewCell.m */,
 				869312311C84238300CD22B2 /* Main.storyboard */,
 				869312371C84238300CD22B2 /* Assets.xcassets */,
 				869312391C84238300CD22B2 /* LaunchScreen.storyboard */,
@@ -117,6 +121,15 @@
 				869312471C84238400CD22B2 /* Info.plist */,
 			);
 			path = SwipeTableViewCellTests;
+			sourceTree = "<group>";
+		};
+		86ADE9C21E1C957C001E4783 /* SwipeTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				86ADE9C31E1C95AB001E4783 /* SwipeTableViewCell.h */,
+				86ADE9C41E1C95AB001E4783 /* SwipeTableViewCell.m */,
+			);
+			path = SwipeTableViewCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,7 +235,8 @@
 			files = (
 				869312301C84238300CD22B2 /* ViewController.m in Sources */,
 				8693122D1C84238300CD22B2 /* AppDelegate.m in Sources */,
-				869312521C84245D00CD22B2 /* SwipeTableViewCell.m in Sources */,
+				86ADE9C81E1C95C3001E4783 /* TestSwipeTableViewCell.m in Sources */,
+				86ADE9C51E1C95AB001E4783 /* SwipeTableViewCell.m in Sources */,
 				869312361C84238300CD22B2 /* SwipeTableViewCell.xcdatamodeld in Sources */,
 				8693122A1C84238300CD22B2 /* main.m in Sources */,
 			);
@@ -415,6 +429,7 @@
 				8693124C1C84238400CD22B2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8693124D1C84238400CD22B2 /* Build configuration list for PBXNativeTarget "SwipeTableViewCellTests" */ = {
 			isa = XCConfigurationList;
@@ -423,6 +438,7 @@
 				8693124F1C84238400CD22B2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
