@@ -6,6 +6,8 @@
 //  Copyright © 2016年 HFY. All rights reserved.
 //
 
+// button的隐藏和显示还有一点问题
+
 #import "SwipeTableViewCell.h"
 
 @interface SwipeTableViewCell ()<UIGestureRecognizerDelegate>
@@ -73,14 +75,14 @@ static NSMutableDictionary *_rightTitle;
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [leftButton setTitle:_leftTitle[self.reuseIdentifier]
                 forState:UIControlStateNormal];
-    leftButton.backgroundColor = [UIColor clearColor];
+    leftButton.backgroundColor = [UIColor greenColor];
     [self.contentView addSubview:leftButton];
     self.leftButton = leftButton;
     
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [rightButton setTitle:_rightTitle[self.reuseIdentifier]
                 forState:UIControlStateNormal];
-    rightButton.backgroundColor = [UIColor clearColor];
+    rightButton.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:rightButton];
     self.rightButton = rightButton;
     
@@ -92,17 +94,27 @@ static NSMutableDictionary *_rightTitle;
     [super layoutSubviews];
     self.leftButton.frame = CGRectMake(0, 0, 88, CGRectGetHeight(self.contentView.bounds));
     self.rightButton.frame = CGRectMake(CGRectGetWidth(self.contentView.bounds) - 88, 0, 88, CGRectGetHeight(self.contentView.bounds));
-
 }
-
 
 - (void)pan:(UIPanGestureRecognizer *)pan {
     CGPoint p = [pan translationInView:self.swipeContentView];
-    
+//    NSLog(@"%@",@(p.y));
     CGFloat x = fabs(p.x);
+    CGFloat y = fabs(p.y);
+//    if (y > x) {
+//        return;
+//    }
+    if ((y != 0 && x < 15) ||  y > x) {
+        // 上滑的时候重置
+        [self swipeContentViewX:0 animated:NO];
+        return;
+    }
     // 轻触cell时也会调用该方法，故加判断
     if (x < 5) {
-        // 如果拖到4就停止了，就不会回去了。
+        // 如果拖到4就停止了，就不会回去了,如果已经停止拖动，重置。
+        if (pan.state == UIGestureRecognizerStateEnded) {
+            [self swipeContentViewX:0 animated:NO];
+        }
         return;
     }
     // 此刻在拖动
@@ -128,17 +140,18 @@ static NSMutableDictionary *_rightTitle;
         // 下面设置时用的x的值，这儿得用原始的
         x = p.x;
     }
-    [self swipeContentViewX:x];
+    [self swipeContentViewX:x animated:YES];
 }
 // 重用时恢复
 - (void)prepareForReuse {
     [super prepareForReuse];
-    [self swipeContentViewX:0];
+    [self swipeContentViewX:0 animated:0];
 
 }
-- (void)swipeContentViewX:(CGFloat)x {
+- (void)swipeContentViewX:(CGFloat)x animated:(BOOL)animated{
     [super setSelected:NO animated:YES];
-
+    self.leftButton.hidden = NO;
+    self.rightButton.hidden = NO;
     CGRect frame = self.swipeContentView.frame;
     frame.origin.x = x;
     
@@ -147,15 +160,30 @@ static NSMutableDictionary *_rightTitle;
     }];
 }
 
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+    self.leftButton.hidden = YES;
+    self.rightButton.hidden = YES;
+    [super setHighlighted:highlighted animated:animated];
+
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.leftButton.hidden = NO;
+        self.rightButton.hidden = NO;
+        if (self.selected) {
+            [super setSelected:NO animated:NO];
+
+        }
+    });
     // Configure the view for the selected state
 }
 // 不设置，tableview不能滑动，该方法返回YES时，意味着所有相同类型的手势辨认都会得到处理。
 #pragma mark - UIGestureRecognizerDelegate
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
-    return YES;
+    // 判断当前是否已经开始滑动，如果开始滑动，拦截tableview
+    return fabs(self.swipeContentView.frame.origin.x) <= 5;
 }
 
 @end
