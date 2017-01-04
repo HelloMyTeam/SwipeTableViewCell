@@ -11,7 +11,7 @@
 
 @interface SwipeTableViewCell : UITableViewCell
 
-@property (nonatomic, strong, readonly) UIView    *swipeContentView;
+@property (nonatomic, strong) IBOutlet UIView    *swipeContentView;
 
 + (void)setLeftTitle:(NSString *)leftTitle
               cellid:(NSString *)cellid;

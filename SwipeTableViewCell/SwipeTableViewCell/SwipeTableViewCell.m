@@ -7,6 +7,7 @@
 //
 
 // button的隐藏和显示还有一点问题
+// 考虑按钮自己加在cell上
 
 #import "SwipeTableViewCell.h"
 
@@ -14,7 +15,7 @@
 
 @property (nonatomic, strong) UIButton  *leftButton;
 @property (nonatomic, strong) UIButton  *rightButton;
-@property (nonatomic, strong, readwrite) UIView    *swipeContentView;
+//@property (nonatomic, strong, readwrite) UIView    *swipeContentView;
 
 @end
 
