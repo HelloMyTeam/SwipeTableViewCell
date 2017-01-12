@@ -61,12 +61,12 @@ static NSMutableDictionary *_rightTitle;
 
 
 - (void)setup {
-    UIView *swipeContentView = [UIView new];
-    swipeContentView.backgroundColor = [UIColor clearColor];
-    swipeContentView.frame = self.contentView.bounds;
-    swipeContentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    
-    self.swipeContentView = swipeContentView;
+//    UIView *swipeContentView = [UIView new];
+//    swipeContentView.backgroundColor = [UIColor clearColor];
+//    swipeContentView.frame = self.contentView.bounds;
+//    swipeContentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    self.swipeContentView = self.contentView;
+    UIView *swipeContentView = self.contentView;
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self
                                                                           action:@selector(pan:)];
     pan.delegate = self;
@@ -77,18 +77,20 @@ static NSMutableDictionary *_rightTitle;
     [leftButton setTitle:_leftTitle[self.reuseIdentifier]
                 forState:UIControlStateNormal];
     leftButton.backgroundColor = [UIColor greenColor];
-    [self.contentView addSubview:leftButton];
+    [self insertSubview:leftButton belowSubview:self.contentView];
     self.leftButton = leftButton;
     
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [rightButton setTitle:_rightTitle[self.reuseIdentifier]
                 forState:UIControlStateNormal];
     rightButton.backgroundColor = [UIColor redColor];
-    [self.contentView addSubview:rightButton];
+    [self insertSubview:rightButton belowSubview:self.contentView];
     self.rightButton = rightButton;
     
     self.swipeContentView.backgroundColor = [UIColor whiteColor];
-    [self.contentView addSubview:swipeContentView];
+//    [self.contentView addSubview:swipeContentView];
+    self.leftButton.hidden = YES;
+    self.rightButton.hidden = YES;
 }
 
 - (void)layoutSubviews {
@@ -151,8 +153,8 @@ static NSMutableDictionary *_rightTitle;
 }
 - (void)swipeContentViewX:(CGFloat)x animated:(BOOL)animated{
     [super setSelected:NO animated:YES];
-    self.leftButton.hidden = NO;
-    self.rightButton.hidden = NO;
+    self.leftButton.hidden = x == 0;
+    self.rightButton.hidden = x == 0;
     CGRect frame = self.swipeContentView.frame;
     frame.origin.x = x;
     
@@ -162,17 +164,32 @@ static NSMutableDictionary *_rightTitle;
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+    [super setHighlighted:highlighted animated:animated];
+    if (self.selectionStyle == UITableViewCellSelectionStyleNone) {
+        return;
+    }
+// 有待研究
     self.leftButton.hidden = YES;
     self.rightButton.hidden = YES;
-    [super setHighlighted:highlighted animated:animated];
+    if (fabs(self.swipeContentView.frame.origin.x) <= 5) {
+        [super setHighlighted:highlighted animated:animated];
+    } else {
+        [super setHighlighted:NO animated:NO];
+
+    }
 
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    
     [super setSelected:selected animated:animated];
+    // 选中之后恢复
+    [self swipeContentViewX:0 animated:YES];
+    if (self.selectionStyle == UITableViewCellSelectionStyleNone) {
+        return;
+    }
     // 为了取消选中
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.leftButton.hidden = NO;
-        self.rightButton.hidden = NO;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+     
         if (self.selected) {
             [super setSelected:NO animated:NO];
 
