@@ -9,9 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
+typedef void(^ClickButtonAction)();
+
 @interface SwipeTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) IBOutlet UIView    *swipeContentView;
+@property (nonatomic, weak) UIView    *swipeContentView;
+
+@property (nonatomic, copy) ClickButtonAction leftAction;
+@property (nonatomic, copy) ClickButtonAction rightAction;
 
 + (void)setLeftTitle:(NSString *)leftTitle
               cellid:(NSString *)cellid;

@@ -44,6 +44,16 @@
 //    SwipeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SwipeTableViewCell" forIndexPath:indexPath];
     TestSwipeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"test"];
     cell.myTextLabel.text = _data[indexPath.row];
+    if (cell.leftAction == NULL) {
+        cell.leftAction = ^{
+            NSLog(@"点击左");
+        };
+    }
+    if (cell.rightAction == NULL) {
+        cell.rightAction = ^{
+            NSLog(@"点击右");
+        };
+    }
     return cell;
 }
 

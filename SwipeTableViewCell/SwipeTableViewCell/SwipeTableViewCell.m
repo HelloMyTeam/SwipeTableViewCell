@@ -77,12 +77,18 @@ static NSMutableDictionary *_rightTitle;
     [leftButton setTitle:_leftTitle[self.reuseIdentifier]
                 forState:UIControlStateNormal];
     leftButton.backgroundColor = [UIColor greenColor];
+    [leftButton addTarget:self
+                   action:@selector(clickLeftButton)
+         forControlEvents:UIControlEventTouchUpInside];
     [self insertSubview:leftButton belowSubview:self.contentView];
     self.leftButton = leftButton;
     
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [rightButton setTitle:_rightTitle[self.reuseIdentifier]
                 forState:UIControlStateNormal];
+    [rightButton addTarget:self
+                   action:@selector(clickrightButton)
+         forControlEvents:UIControlEventTouchUpInside];
     rightButton.backgroundColor = [UIColor redColor];
     [self insertSubview:rightButton belowSubview:self.contentView];
     self.rightButton = rightButton;
@@ -91,6 +97,21 @@ static NSMutableDictionary *_rightTitle;
 //    [self.contentView addSubview:swipeContentView];
     self.leftButton.hidden = YES;
     self.rightButton.hidden = YES;
+}
+
+- (void)clickLeftButton {
+    [self swipeContentViewX:0 animated:YES];
+
+    if (self.leftAction) {
+        self.leftAction();
+    }
+}
+
+- (void)clickrightButton {
+    [self swipeContentViewX:0 animated:YES];
+    if (self.rightAction) {
+        self.rightAction();
+    }
 }
 
 - (void)layoutSubviews {
